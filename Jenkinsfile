@@ -1,7 +1,9 @@
 pipeline {
     agent any
     
-    env.PATH += "/usr/local/Cellar/maven/3.5.3/libexec/bin"
+    environment {
+        PATH = '$PATH:/usr/local/Cellar/maven/3.5.3/libexec/bin'
+    }
 
     stages {
         stage('Build') {
