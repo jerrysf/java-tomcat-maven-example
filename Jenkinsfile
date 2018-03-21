@@ -2,13 +2,13 @@ pipeline {
     agent any
     
     environment {
-        PATH = '$PATH:/usr/local/Cellar/maven/3.5.3/libexec/bin'
+        MAVEN_HOME = '/usr/local/Cellar/maven/3.5.3/libexec/bin'
     }
 
     stages {
         stage('Build') {
           steps {
-                sh 'mvn package'
+              sh '${MAVEN_HOME}/bin/mvn package'
             }
         }
         
