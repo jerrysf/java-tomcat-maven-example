@@ -9,12 +9,13 @@ pipeline {
         stage('Build') {
           steps {
               sh '${MAVEN_HOME}/bin/mvn package'
+              archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
             }
         }
         
         stage('Deploy to Staging') {
             steps {
-                echo 'Deploying..'
+                sh 'ansible-playbook -i hosts staging.yml'
             }
         }
         
@@ -26,7 +27,7 @@ pipeline {
         
         stage('Deploy to Production') {
             steps {
-                echo 'Deploying..'
+                sh 'ansible-playbook -i hosts production.yml'
             }
         }
         
