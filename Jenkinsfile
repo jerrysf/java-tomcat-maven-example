@@ -15,7 +15,7 @@ pipeline {
         
         stage('Deploy to Staging') {
             steps {
-                sh 'ansible-playbook -i hosts staging.yml'
+                sh '/usr/local/bin/ansible-playbook -i hosts staging.yml'
             }
         }
         
@@ -27,7 +27,7 @@ pipeline {
         
         stage('Deploy to Production') {
             steps {
-                sh 'ansible-playbook -i hosts production.yml'
+                sh '/usr/local/bin/ansible-playbook -i hosts production.yml'
             }
         }
         
