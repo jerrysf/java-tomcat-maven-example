@@ -1,0 +1,5 @@
+[stagingServer]
+localhost
+
+[productionServer]
+localhost
