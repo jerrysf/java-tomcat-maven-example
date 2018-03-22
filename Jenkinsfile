@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         MAVEN_HOME = '/usr/local/Cellar/maven/3.5.3/libexec'
+        ANSIBLE_HOME = '/usr/local/Cellar/ansible/2.4.3.0_4'
     }
 
     stages {
@@ -23,7 +24,7 @@ pipeline {
                 label 'deploy'
             }
             steps {
-                sh "ansible-playbook -i hosts staging.yml --extra-vars build_id=${env.BUILD_ID}"
+                sh "${ANSIBLE_HOME}/bin/ansible-playbook -i hosts staging.yml --extra-vars build_id=${env.BUILD_ID}"
             }
         }
 
@@ -43,7 +44,7 @@ pipeline {
                 label 'deploy'
             }
             steps {
-                sh "ansible-playbook -i hosts production.yml --extra-vars build_id=${env.BUILD_ID}"
+                sh "${ANSIBLE_HOME}/bin/ansible-playbook -i hosts production.yml --extra-vars build_id=${env.BUILD_ID}"
             }
         }
     }
