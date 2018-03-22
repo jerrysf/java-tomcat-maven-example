@@ -2,10 +2,11 @@
 - hosts: productionServer
   vars:
   - warName: companynews.war
+  - build_id: "{{ build_id }}"
 
   tasks:
   - name: Download WAR to production server
-    command: curl http://localhost:8080/job/companyNews/14/artifact/target/companynews.war -o /Users/jerryyu/Work/Thoughtworks/companynews.war
+    command: curl http://localhost:8080/job/companyNews/{{ build_id }}/artifact/target/companynews.war -o /Users/jerryyu/Work/Thoughtworks/companynews.war
 
   - name: Unzip WAR file
     unarchive: src=/Users/jerryyu/Work/Thoughtworks/{{ warName }} dest=/usr/local/tomcat8/webapps/ROOT/ copy=no mode=0755
