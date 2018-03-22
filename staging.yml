@@ -15,4 +15,4 @@
 
   handlers:
     - name: Restart tomcat8
-      service: name=tomcat8 state=restarted
+      command: /usr/local/tomcat8/bin/catalina.sh stop && /usr/local/tomcat8/bin/catalina.sh start
