@@ -23,7 +23,7 @@ pipeline {
                 label 'deploy'
             }
             steps {
-                sh "ansible-playbook -i hosts staging.yml --extra-vars "build_id=${env.BUILD_ID}""
+                sh "ansible-playbook -i hosts staging.yml --extra-vars build_id=${env.BUILD_ID}"
             }
         }
 
@@ -43,7 +43,7 @@ pipeline {
                 label 'deploy'
             }
             steps {
-                sh "ansible-playbook -i hosts production.yml --extra-vars "build_id=${env.BUILD_ID}""
+                sh "ansible-playbook -i hosts production.yml --extra-vars build_id=${env.BUILD_ID}"
             }
         }
     }
