@@ -1,0 +1,17 @@
+---
+- hosts: productionServer
+  vars:
+  - warName: companynews.war
+
+  tasks:
+  - name: Download WAR to production server
+    command: curl http://localhost:8080/job/companyNews/14/artifact/target/companynews.war -o /Users/jerryyu/Work/Thoughtworks/companynews.war
+
+  - name: Unzip WAR file
+    unarchive: src=/Users/jerryyu/Work/Thoughtworks/{{ warName }} dest=/usr/local/tomcat8/webapps/ROOT/ copy=no mode=0755
+    notify:
+        - Restart tomcat8
+
+  handlers:
+    - name: Restart tomcat8
+      service: name=tomcat8 state=restarted
