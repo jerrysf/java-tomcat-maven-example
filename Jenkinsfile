@@ -6,38 +6,42 @@ pipeline {
     }
 
     stages {
-        agent {
+        
+        stage('Build') {
+          agent {
                 label 'build'
             }
-        stage('Build') {
           steps {
               sh '${MAVEN_HOME}/bin/mvn package'
               archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
             }
         }
 
-        agent {
+        
+        stage('Deploy to Staging') {
+            agent {
                 label 'deploy'
             }
-        stage('Deploy to Staging') {
             steps {
                 sh 'ansible-playbook -i hosts staging.yml --extra-vars "build_id=${env.BUILD_ID}"'
             }
         }
 
-        agent {
+        
+        stage('Test') {
+            agent {
                 label 'test'
             }
-        stage('Test') {
             steps {
                 echo 'Testing..'
             }
         }
 
-        agent {
+        
+        stage('Deploy to Production') {
+            agent {
                 label 'deploy'
             }
-        stage('Deploy to Production') {
             steps {
                 sh 'ansible-playbook -i hosts production.yml --extra-vars "build_id=${env.BUILD_ID}"'
             }
