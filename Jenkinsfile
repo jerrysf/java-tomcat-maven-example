@@ -48,7 +48,7 @@ pipeline {
             emailext (
                subject: "Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' failed",
                body: "Please check and fix the failure!",
-               from: "jenkins@company.com"
+               from: "jenkins@company.com",
                to: "developers@company.com"
               )
         }
