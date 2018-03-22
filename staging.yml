@@ -1,0 +1,18 @@
+---
+- hosts: stagingServer
+  vars:
+  - warName: companynews.war
+  - build_id: "{{ build_id }}"
+
+  tasks:
+  - name: Download WAR to staging server
+    command: curl http://localhost:8080/job/companyNews/{{ build_id }}/artifact/target/companynews.war -o /Users/jerryyu/Work/Thoughtworks/companynews.war
+
+  - name: Unzip WAR file
+    unarchive: src=/Users/jerryyu/Work/Thoughtworks/{{ warName }} dest=/usr/local/tomcat8/webapps/ROOT/ copy=no mode=0755
+    notify:
+        - Restart tomcat8
+
+  handlers:
+    - name: Restart tomcat8
+      service: name=tomcat8 state=restarted
