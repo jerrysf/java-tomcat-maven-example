@@ -46,6 +46,7 @@ pipeline {
                 sh 'ansible-playbook -i hosts production.yml --extra-vars "build_id=${env.BUILD_ID}"'
             }
         }
+    }
 
         post {
             failure {
@@ -57,5 +58,5 @@ pipeline {
               )
         }
     }
-    }
+    
 }
